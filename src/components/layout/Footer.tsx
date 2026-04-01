@@ -1,6 +1,6 @@
-import { Camera, MapPin, MessageCircle, Music2 } from "lucide-react";
+import { MapPin, MessageCircle } from "lucide-react";
 import Link from "next/link";
-import { SOCIAL_LINKS } from "@/lib/business";
+import { SocialIconRow } from "@/components/social/SocialIconRow";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -18,11 +18,7 @@ export function Footer() {
             <p className="text-gray-600 font-medium">
               Luxury in every bite. Creating unforgettable moments with premium cakes and desserts.
             </p>
-            <div className="flex justify-center md:justify-start gap-4 text-gray-500">
-              <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-[#25D366] transition-colors"><MessageCircle className="w-5 h-5"/></a>
-              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-[#E1306C] transition-colors"><Camera className="w-5 h-5"/></a>
-              <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="hover:text-black transition-colors"><Music2 className="w-5 h-5"/></a>
-            </div>
+            <SocialIconRow />
           </div>
           
           {/* Quick Links */}
@@ -46,7 +42,7 @@ export function Footer() {
               </li>
               <li className="flex items-center justify-center md:justify-start gap-2 text-gray-600">
                 <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                <span>DM us on WhatsApp, Instagram, or TikTok</span>
+                <span>DM us on WhatsApp, Instagram, TikTok, or Facebook</span>
               </li>
             </ul>
           </div>

@@ -1,10 +1,10 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Camera, MessageCircle, Music2 } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SOCIAL_LINKS, WHATSAPP_NUMBER } from "@/lib/business";
+import { WHATSAPP_NUMBER } from "@/lib/business";
+import { SocialIconRow } from "@/components/social/SocialIconRow";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 
@@ -93,19 +93,9 @@ export default function ContactPage() {
             <div className="md:col-span-2 bg-[#FAF9F6] border border-gray-200 rounded-3xl p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-3">Socials</h2>
               <p className="text-sm text-gray-600 mb-4">
-                Tap any icon to open the account. You can share final links later.
+                Follow us on social media or message us on WhatsApp.
               </p>
-              <div className="flex items-center gap-4">
-                <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-3 rounded-full bg-white border border-gray-200 hover:border-[#25D366] hover:text-[#25D366] transition-colors">
-                  <MessageCircle className="w-5 h-5" />
-                </a>
-                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-3 rounded-full bg-white border border-gray-200 hover:border-[#E1306C] hover:text-[#E1306C] transition-colors">
-                  <Camera className="w-5 h-5" />
-                </a>
-                <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="p-3 rounded-full bg-white border border-gray-200 hover:border-black hover:text-black transition-colors">
-                  <Music2 className="w-5 h-5" />
-                </a>
-              </div>
+              <SocialIconRow />
             </div>
           </div>
         </div>

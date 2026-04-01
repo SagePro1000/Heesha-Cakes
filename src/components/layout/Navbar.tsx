@@ -8,11 +8,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Home",       href: "/" },
+  { label: "Home", href: "/" },
+  { label: "Menu", href: "/#menu" },
   { label: "Testimonials", href: "/#reviews" },
-  { label: "Menu",       href: "/#menu" },
-  { label: "FAQs",       href: "/#faqs" },
-  { label: "Shop",       href: "/shop" },
+  { label: "FAQs", href: "/#faqs" },
+  { label: "Shop", href: "/shop" },
   { label: "Contact Us", href: "/contact" },
 ];
 
