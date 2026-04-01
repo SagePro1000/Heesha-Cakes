@@ -10,9 +10,43 @@ import { ProductModal } from "@/components/product/ProductModal";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import { DUMMY_PRODUCTS, Product, ProductCategory } from "@/types/product";
-import { PlayCircle, Star, ArrowRight } from "lucide-react";
+import { Star, ChevronDown } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const CATEGORIES: ("All" | ProductCategory)[] = ["All", "Buttercream Frosting", "Whipped Cream Frosting", "Plain Cakes", "Extras"];
+const TESTIMONIALS = [
+  { quote: "The best bento cake I have ever had! The sponge was so soft and the design was precisely what I asked for.", name: "Sarah T.", location: "Lagos Island" },
+  { quote: "Ordered the 8k signature for my sister's birthday and it was the highlight of the event. Absolute perfection.", name: "Daniel O.", location: "Surulere" },
+  { quote: "Heesha's foil cakes are my weekly addiction. The chocolate is so rich and premium. Highly recommend!", name: "Amina M.", location: "Ilorin" },
+  { quote: "Delivery was on time and the cake looked exactly like my inspo picture. Flavor was top-tier.", name: "Rita E.", location: "Lekki" },
+  { quote: "I ordered cupcakes for my office event and everyone asked where I got them from.", name: "Tobi A.", location: "Yaba" },
+  { quote: "Very responsive service and premium taste. Worth every naira.", name: "Kemi L.", location: "Ikeja" },
+];
+const FAQS = [
+  {
+    question: "How far ahead should I place my order?",
+    answer: "Please place custom cake orders at least 24-48 hours in advance. For large events like weddings, 5-7 days notice is best.",
+  },
+  {
+    question: "Do you deliver within Lagos and outside Lagos?",
+    answer: "Yes. We deliver across Lagos (Surulere, Mainland, Island/Lekki) and Ilorin. Delivery fees are calculated at checkout based on your zone.",
+  },
+  {
+    question: "Can I request specific flavors, sizes, and layers?",
+    answer: "Yes. You can customize flavor, size, and layers on product pages. The final price updates based on your selected options.",
+  },
+  {
+    question: "Do you take urgent same-day orders?",
+    answer: "We recommend 24 hours notice. For urgent requests, send us a WhatsApp message first and we will confirm availability.",
+  },
+  {
+    question: "How do I confirm payment for my order?",
+    answer: "After checkout, you will be redirected to WhatsApp with your order summary. We will reply with payment and confirmation details.",
+  },
+];
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -20,6 +54,7 @@ export default function Home() {
   
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeCategory, setActiveCategory] = useState<"All" | ProductCategory>("All");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const filteredProducts = activeCategory === "All" 
     ? DUMMY_PRODUCTS 
@@ -96,28 +131,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Behind the Treats / Video Mock Section */}
-      <section id="behind-the-treats" className="py-12 bg-[#FAF9F6]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl overflow-hidden aspect-video bg-gray-900 shadow-2xl flex items-center justify-center cursor-pointer group">
-            <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-tr from-[#00B4D8] to-[#FF4D6D]" />
-            <img src="/images/bento_cake.png" alt="Video thumbnail" className="absolute inset-0 w-full h-full object-cover opacity-60" />
-            <div className="z-10 w-24 h-24 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <PlayCircle className="w-12 h-12 text-white" />
-            </div>
-            <div className="absolute bottom-8 left-8 z-10">
-              <h2 className="text-white text-3xl font-bold">Behind the Treats</h2>
-              <p className="text-white/80 mt-2">See how our signature cakes are crafted</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Menu / Product Grid */}
       <section id="menu" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-[#00B4D8] mb-2">Our Menu</h2>
+            <h2 className="text-sm font-bold uppercase tracking-widest text-primary mb-2">Our Menu</h2>
             <h3 className="text-4xl font-black text-gray-900">Explore our creations</h3>
           </div>
 
@@ -129,8 +147,8 @@ export default function Home() {
                 onClick={() => setActiveCategory(category)}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === category
-                    ? "bg-[#FF4D6D] text-white shadow-md shadow-[#FF4D6D]/20 transform scale-105"
-                    : "bg-gray-50 text-gray-600 hover:bg-gray-100 hover:gap-gray-900"
+                    ? "bg-secondary text-white shadow-md shadow-secondary/20 transform scale-105"
+                    : "bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 }`}
               >
                 {category}
@@ -174,24 +192,60 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#00B4D8]/10 text-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-[#00B4D8]/10 rounded-bl-full" />
-              <p className="text-gray-600 italic mb-6">"The best bento cake I have ever had! The sponge was so soft and the design was precisely what I asked for."</p>
-              <h4 className="font-bold text-gray-900">- Sarah T.</h4>
-              <p className="text-sm text-[#FF4D6D]">Lagos Island</p>
-            </div>
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#00B4D8]/10 text-center transform md:-translate-y-4">
-              <p className="text-gray-600 italic mb-6">"Ordered the 8k signature for my sister's birthday and it was the highlight of the event. Absolute perfection."</p>
-              <h4 className="font-bold text-gray-900">- Daniel O.</h4>
-              <p className="text-sm text-[#FF4D6D]">Surulere</p>
-            </div>
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#00B4D8]/10 text-center relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-16 h-16 bg-[#FF4D6D]/10 rounded-br-full" />
-              <p className="text-gray-600 italic mb-6">"Heesha's foil cakes are my weekly addiction. The chocolate is so rich and premium. Highly recommend!"</p>
-              <h4 className="font-bold text-gray-900">- Amina M.</h4>
-              <p className="text-sm text-[#FF4D6D]">Ilorin</p>
-            </div>
+          <Swiper
+            modules={[Autoplay, Pagination]}
+            spaceBetween={24}
+            slidesPerView={1}
+            autoplay={{ delay: 3500, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-12"
+          >
+            {TESTIMONIALS.map((item, index) => (
+              <SwiperSlide key={`${item.name}-${index}`}>
+                <div className="h-full bg-white p-8 rounded-3xl shadow-sm border border-[#00B4D8]/10 text-center">
+                  <p className="text-gray-600 italic mb-6">
+                    {`\u201C${item.quote.replaceAll("'", "\u2019")}\u201D`}
+                  </p>
+                  <h4 className="font-bold text-gray-900">- {item.name}</h4>
+                  <p className="text-sm text-[#FF4D6D]">{item.location}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faqs" className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-gray-900 mb-3">Frequently Asked Questions</h2>
+            <p className="text-gray-600">Quick answers for common cake ordering questions in Nigeria.</p>
+          </div>
+          <div className="space-y-4">
+            {FAQS.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div key={faq.question} className="border border-gray-200 rounded-2xl overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between text-left p-5 bg-white hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="font-semibold text-gray-900">{faq.question}</span>
+                    <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 pb-5 text-gray-600">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

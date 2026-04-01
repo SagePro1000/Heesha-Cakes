@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
-import { formatPrice } from "@/lib/utils";
-import { ShoppingBag, ChevronRight } from "lucide-react";
+import { formatPriceRange, getProductPriceRange } from "@/lib/pricing";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 interface ProductCardProps {
@@ -9,6 +9,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onOpenModal }: ProductCardProps) {
+  const { min, max } = getProductPriceRange(product);
+
   return (
     <div 
       className="group relative bg-[#ffffff] rounded-2xl glass hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100/50 cursor-pointer flex flex-col h-full"
@@ -48,8 +50,8 @@ export function ProductCard({ product, onOpenModal }: ProductCardProps) {
         </div>
         
         <div className="flex items-center justify-between mt-auto">
-          <p className="text-[#00B4D8] font-black text-xl">
-            {formatPrice(product.basePrice)}
+          <p className="text-[#00B4D8] font-black text-base md:text-lg">
+            {formatPriceRange(min, max)}
           </p>
           <button className="h-10 w-10 bg-gray-50 group-hover:bg-[#FF4D6D] rounded-full flex items-center justify-center text-gray-400 group-hover:text-white transition-colors duration-300">
             <ChevronRight className="w-5 h-5 pointer-events-none" />

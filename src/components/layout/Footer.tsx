@@ -1,4 +1,6 @@
-import { Heart, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Camera, MapPin, MessageCircle, Music2 } from "lucide-react";
+import Link from "next/link";
+import { SOCIAL_LINKS } from "@/lib/business";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -16,9 +18,10 @@ export function Footer() {
             <p className="text-gray-600 font-medium">
               Luxury in every bite. Creating unforgettable moments with premium cakes and desserts.
             </p>
-            <div className="flex justify-center md:justify-start gap-4 text-gray-400">
-              <a href="#" className="hover:text-secondary transition-colors"><Heart className="w-5 h-5"/></a>
-              <a href="#" className="hover:text-primary transition-colors"><MessageCircle className="w-5 h-5"/></a>
+            <div className="flex justify-center md:justify-start gap-4 text-gray-500">
+              <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="hover:text-[#25D366] transition-colors"><MessageCircle className="w-5 h-5"/></a>
+              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-[#E1306C] transition-colors"><Camera className="w-5 h-5"/></a>
+              <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="hover:text-black transition-colors"><Music2 className="w-5 h-5"/></a>
             </div>
           </div>
           
@@ -27,9 +30,9 @@ export function Footer() {
             <h4 className="font-bold text-xl text-gray-900">Sweet Links</h4>
             <ul className="space-y-2">
               <li><a href="#menu" className="text-gray-600 hover:text-primary">Menu</a></li>
-              <li><a href="#about" className="text-gray-600 hover:text-primary">Our Story</a></li>
+              <li><a href="#reviews" className="text-gray-600 hover:text-primary">Testimonials</a></li>
               <li><a href="#faqs" className="text-gray-600 hover:text-primary">FAQs</a></li>
-              <li><a href="#contact" className="text-gray-600 hover:text-primary">Contact</a></li>
+              <li><Link href="/contact" className="text-gray-600 hover:text-primary">Contact</Link></li>
             </ul>
           </div>
           
@@ -42,8 +45,8 @@ export function Footer() {
                 Surulere | Lagos Island | Ilorin
               </li>
               <li className="flex items-center justify-center md:justify-start gap-2 text-gray-600">
-                <Phone className="w-4 h-4 text-secondary" /> 
-                <a href="https://wa.me/2340000000000">+234 000 000 0000 (WhatsApp Only)</a>
+                <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                <span>DM us on WhatsApp, Instagram, or TikTok</span>
               </li>
             </ul>
           </div>

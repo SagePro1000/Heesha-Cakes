@@ -11,6 +11,7 @@ import { CheckoutModal } from "@/components/checkout/CheckoutModal";
 import { DUMMY_PRODUCTS, Product, ProductCategory } from "@/types/product";
 import { ShoppingCart, SlidersHorizontal, X } from "lucide-react";
 import { useCartStore } from "@/store/useCartStore";
+import { formatPriceRange, getCustomizedPrice, getProductPriceRange } from "@/lib/pricing";
 
 const ALL_CATEGORIES: ("All" | ProductCategory)[] = [
   "All",
@@ -31,18 +32,24 @@ function ShopProductCard({
 
   function handleQuickAdd(e: React.MouseEvent) {
     e.stopPropagation();
+    const defaultFlavor = product.availableFlavors[0] || "";
+    const defaultSize = product.availableSizes[0] || "";
+    const customizedPrice = getCustomizedPrice(product, defaultSize, defaultFlavor);
+
     addItem({
       id: `${product.id}-quick`,
       productId: product.id,
       name: product.name,
       image: product.image,
-      flavor: product.availableFlavors[0],
-      size: product.availableSizes[0],
+      flavor: defaultFlavor,
+      size: defaultSize,
       inscription: "",
-      price: product.basePrice,
+      price: customizedPrice,
       quantity: 1,
     });
   }
+
+  const { min, max } = getProductPriceRange(product);
 
   return (
     <motion.div
@@ -80,7 +87,7 @@ function ShopProductCard({
         <p className="text-xs text-gray-500 line-clamp-2 mb-3">{product.description}</p>
         <div className="flex items-center justify-between">
           <span className="font-bold text-secondary text-base">
-            ₦{product.basePrice.toLocaleString()}
+            {formatPriceRange(min, max)}
           </span>
           <button
             onClick={(e) => { e.stopPropagation(); onOpenModal(product); }}

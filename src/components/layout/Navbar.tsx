@@ -9,10 +9,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
   { label: "Home",       href: "/" },
-  { label: "About Us",   href: "/#about" },
+  { label: "Testimonials", href: "/#reviews" },
   { label: "Menu",       href: "/#menu" },
+  { label: "FAQs",       href: "/#faqs" },
   { label: "Shop",       href: "/shop" },
-  { label: "Contact Us", href: "/#contact" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export function Navbar({ onOpenCart }: { onOpenCart: () => void }) {

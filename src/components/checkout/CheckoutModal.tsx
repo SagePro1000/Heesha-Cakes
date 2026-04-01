@@ -3,6 +3,7 @@ import { X, AlertCircle } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
 import { useCartStore } from "@/store/useCartStore";
 import { motion, AnimatePresence } from "framer-motion";
+import { WHATSAPP_NUMBER } from "@/lib/business";
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -60,8 +61,7 @@ export function CheckoutModal({ isOpen, onClose }: CheckoutModalProps) {
     message += `Please process my order!`;
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "2348000000000"; // Replace with actual business WhatsApp number
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
 
     window.open(whatsappUrl, "_blank");
     onClose();
